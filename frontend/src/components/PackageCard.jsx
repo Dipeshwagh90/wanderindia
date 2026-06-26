@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocalStorageObject } from '../hooks/useLocalStorage';
+import { FaHeart, FaStar, FaCalendarAlt } from 'react-icons/fa';
+import { FiHeart, FiArrowRight } from 'react-icons/fi';
 import '../styles/Cards.css';
 
 const PackageCard = ({ package: pkg }) => {
@@ -44,8 +46,9 @@ const PackageCard = ({ package: pkg }) => {
         onClick={toggleWishlist}
         title={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
       >
-        {isWishlisted ? '❤️' : '❤️'}
+        {isWishlisted ? <FaHeart /> : <FiHeart />}
       </button>
+
       <div className="image-container" style={{ position: 'relative', overflow: 'hidden' }}>
         {!imageLoaded && (
           <div 
@@ -55,7 +58,7 @@ const PackageCard = ({ package: pkg }) => {
               top: 0,
               left: 0,
               width: '100%',
-              height: '150px',
+              height: '220px',
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               display: 'flex',
               alignItems: 'center',
@@ -86,7 +89,7 @@ const PackageCard = ({ package: pkg }) => {
               top: 0,
               left: 0,
               width: '100%',
-              height: '150px',
+              height: '220px',
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               display: 'flex',
               alignItems: 'center',
@@ -101,23 +104,40 @@ const PackageCard = ({ package: pkg }) => {
           </div>
         )}
       </div>
-      <h3>{pkg.name}</h3>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-        <span className="rating-badge" style={{ fontSize: '1.1rem', fontWeight: 'bold', background: 'rgba(245, 158, 11, 0.1)', color: '#d97706' }}>
-          ₹{pkg.price?.toLocaleString()}
-        </span>
-      </div>
-      <div style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>
-        <p style={{ margin: '0.25rem 0' }}>
-          Duration: <strong>{pkg.duration}</strong>
+
+      <div className="card-content">
+        <h3 className="card-title">{pkg.name}</h3>
+
+        <div className="card-meta">
+          <span className="category-tag">
+            {pkg.destination?.name || 'Tour'}
+          </span>
+          {pkg.destination?.rating && (
+            <span className="rating-badge">
+              <FaStar /> {pkg.destination.rating}/5
+            </span>
+          )}
+        </div>
+
+        <p className="card-desc">
+          Includes: {pkg.inclusions?.slice(0, 3).join(', ')}
+          {pkg.inclusions?.length > 3 ? '...' : ''}
         </p>
-        <p style={{ margin: '0.25rem 0' }}>
-          Includes: {pkg.inclusions?.slice(0, 2).join(', ')}...
-        </p>
+
+        <div className="card-info-row">
+          <div className="card-price">
+            <span className="price-label">Price starts from</span>
+            <span className="price-val">₹{pkg.price?.toLocaleString('en-IN')}</span>
+          </div>
+          <span className="card-duration">
+            <FaCalendarAlt /> {pkg.duration} Days
+          </span>
+        </div>
+
+        <Link to={`/packages/${pkg._id}`} className="card-btn">
+          Explore Package <FiArrowRight />
+        </Link>
       </div>
-      <Link to={`/packages/${pkg._id}`} style={{ marginTop: 'auto' }}>
-        Explore Package →
-      </Link>
     </div>
   );
 };

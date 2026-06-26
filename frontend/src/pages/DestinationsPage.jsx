@@ -69,27 +69,23 @@ const DestinationsPage = () => {
 
   return (
     <div className="destinations-page">
-      <div style={{ marginBottom: '2rem' }}>
+      <div className="page-hero-banner">
         <h1>Explore Indian Destinations</h1>
-        <p style={{ color: 'var(--muted)' }}>Discover {filteredDestinations.length} amazing places to visit</p>
+        <p>Discover {filteredDestinations.length} amazing places to visit</p>
       </div>
 
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} value={searchTerm} />
 
       <div className="filters">
         <div className="filters-header">
           <div style={{ flex: 1 }}>
-            <h3 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 600 }}>Filter by Category</h3>
-            <div className="category-filters">
+            <h3 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700 }}>Filter by Category</h3>
+            <div className="glass-category-filters">
               {categories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setCategory(cat)}
-                  style={{
-                    background: category === cat ? 'var(--primary)' : 'var(--surface)',
-                    color: category === cat ? 'white' : 'var(--text)',
-                    borderColor: category === cat ? 'var(--primary)' : 'rgba(15, 23, 42, 0.12)'
-                  }}
+                  className={`glass-category-btn ${category === cat ? 'active' : ''}`}
                 >
                   {cat}
                 </button>
@@ -101,13 +97,13 @@ const DestinationsPage = () => {
         <div className="filters-actions">
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.9rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, fontSize: '0.9rem' }}>
                 Minimum Rating
               </label>
               <select 
                 value={minRating} 
                 onChange={(e) => setMinRating(Number(e.target.value))}
-                className="sort-dropdown"
+                className="premium-select"
               >
                 <option value={0}>All Ratings</option>
                 <option value={4}>4+ Stars ⭐</option>
@@ -116,13 +112,13 @@ const DestinationsPage = () => {
               </select>
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.9rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, fontSize: '0.9rem' }}>
                 Sort by
               </label>
               <select 
                 value={sortBy} 
                 onChange={(e) => setSortBy(e.target.value)}
-                className="sort-dropdown"
+                className="premium-select"
               >
                 <option value="name">Name (A-Z)</option>
                 <option value="rating">Rating (High to Low)</option>
@@ -138,22 +134,36 @@ const DestinationsPage = () => {
       ) : filteredDestinations.length === 0 ? (
         <div style={{ 
           textAlign: 'center', 
-          padding: '3rem 1rem',
-          background: 'rgba(16, 97, 244, 0.05)',
-          borderRadius: '1.5rem',
-          marginTop: '2rem'
+          padding: '4rem 2rem',
+          background: 'rgba(16, 97, 244, 0.03)',
+          borderRadius: '24px',
+          marginTop: '2rem',
+          border: '1px dashed rgba(79, 70, 229, 0.15)'
         }}>
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>No destinations found</h2>
-          <p style={{ color: 'var(--muted)' }}>Try adjusting your filters or search terms</p>
+          <h2 style={{ fontSize: '1.6rem', marginBottom: '0.5rem', fontWeight: 700 }}>No destinations found</h2>
+          <p style={{ color: 'var(--muted)', marginBottom: '1.5rem' }}>Try adjusting your filters or search terms</p>
+          <button 
+            onClick={() => {
+              setCategory('All');
+              setSearchTerm('');
+              setMinRating(0);
+              setSortBy('name');
+            }}
+            className="reset-filters-btn"
+          >
+            Reset All Filters
+          </button>
         </div>
       ) : (
         <>
-          <p style={{ color: 'var(--muted)', marginBottom: '1rem' }}>
+          <p style={{ color: 'var(--muted)', marginBottom: '1rem', fontWeight: 500 }}>
             Showing {filteredDestinations.length} destination{filteredDestinations.length !== 1 ? 's' : ''}
           </p>
           <div className="destinations-grid">
-            {filteredDestinations.map(dest => (
-              <DestinationCard key={dest._id} destination={dest} />
+            {filteredDestinations.map((dest, idx) => (
+              <div key={dest._id} className="card-entry-animate" style={{ animationDelay: `${idx * 0.05}s` }}>
+                <DestinationCard destination={dest} />
+              </div>
             ))}
           </div>
         </>

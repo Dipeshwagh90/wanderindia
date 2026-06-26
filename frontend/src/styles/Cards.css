@@ -1,210 +1,326 @@
-/* Cards.css - Enhanced Card Styling */
+/* Cards.css - Premium Card Styling System */
 
-.destination-card {
-  display: flex;
-  flex-direction: column;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
-  height: 100%;
-}
-
-.destination-card:hover {
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
-  transform: translateY(-8px);
-  border-color: #667eea;
-}
-
-.destination-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.destination-card:hover img {
-  transform: scale(1.05);
-}
-
-.destination-card h3 {
-  margin: 1rem 1rem 0.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.destination-card p {
-  margin: 0.25rem 1rem;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.destination-card .rating-badge {
-  display: inline-block;
-  margin: 0.5rem 1rem;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.1) 100%);
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-weight: 600;
-  color: #667eea;
-}
-
-.destination-card a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: 1rem;
-  margin-top: auto;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.destination-card a:hover {
-  transform: translateX(2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-.destination-card .wishlist-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.4rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.destination-card .wishlist-btn:hover,
-.destination-card .wishlist-btn.active {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Package Card */
+/* Base Cards */
+.destination-card,
 .package-card {
-  display: flex;
-  flex-direction: column;
-  background: white;
-  border-radius: 12px;
-  padding: -16.5rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
-  height: 59%;
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--surface, #ffffff) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(15, 23, 42, 0.05) !important;
+  position: relative !important;
+  height: 100% !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease !important;
 }
 
+body.dark .destination-card,
+body.dark .package-card {
+  background: #1e293b !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.destination-card:hover,
 .package-card:hover {
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.15);
-  transform: translateY(-8px);
-  border-color: #667eea;
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.12) !important;
+  border-color: rgba(79, 70, 229, 0.25) !important;
 }
 
-.package-card h3 {
-  margin: 0 0 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
+body.dark .destination-card:hover,
+body.dark .package-card:hover {
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.25) !important;
 }
 
-.package-card .rating-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.1) 100%);
-  color: #d97706;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
+/* Image Container */
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #f1f5f9;
 }
 
-.package-card p {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  color: #666;
+body.dark .image-container {
+  background: #0f172a;
 }
 
-.package-card a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: auto;
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  width: fit-content;
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.package-card a:hover {
-  transform: translateX(2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+.destination-card:hover .image-container img,
+.package-card:hover .image-container img {
+  transform: scale(1.08);
 }
 
-.package-card .wishlist-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.4rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 2;
+/* Wishlist Button */
+.wishlist-btn {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  z-index: 5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  color: #94a3b8 !important;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+body.dark .wishlist-btn {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  color: #64748b !important;
+}
+
+.wishlist-btn:hover {
+  background: #ffffff !important;
+  transform: scale(1.12) !important;
+  color: #ef4444 !important;
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.2) !important;
+}
+
+body.dark .wishlist-btn:hover {
+  background: #0f172a !important;
+  color: #f87171 !important;
+}
+
+.wishlist-btn.active {
+  background: #ffffff !important;
+  color: #ef4444 !important;
+  border-color: rgba(239, 68, 68, 0.1) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15) !important;
+}
+
+body.dark .wishlist-btn.active {
+  background: #0f172a !important;
+  color: #f87171 !important;
+}
+
+.wishlist-btn svg {
+  width: 19px;
+  height: 19px;
+  transition: transform 0.2s ease;
+}
+
+.wishlist-btn:active svg {
+  transform: scale(0.85);
+}
+
+/* Card Content Area */
+.card-content {
+  padding: 1.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+  gap: 0.75rem !important;
+}
+
+.card-title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: var(--text, #0f172a) !important;
+  margin: 0 !important;
+  line-height: 1.35 !important;
+  transition: color 0.2s ease !important;
+}
+
+body.dark .card-title {
+  color: #f8fafc !important;
+}
+
+.destination-card:hover .card-title,
+.package-card:hover .card-title {
+  color: var(--primary, #4f46e5) !important;
+}
+
+/* Metadata Row */
+.card-meta {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.package-card .wishlist-btn:hover,
-.package-card .wishlist-btn.active {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.rating-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+  color: #d97706 !important;
+  padding: 0.35rem 0.75rem !important;
+  border-radius: 30px !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(245, 158, 11, 0.15) !important;
 }
 
-@media (max-width: 768px) {
-  .destination-card,
-  .package-card {
-    border-radius: 10px;
-  }
+body.dark .rating-badge {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #fbbf24 !important;
+}
 
-  .destination-card h3,
-  .package-card h3 {
-    font-size: 1rem;
-  }
+.category-tag {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #6366f1 !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+  padding: 0.35rem 0.75rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border: 1px solid rgba(99, 102, 241, 0.15) !important;
+}
 
-  .destination-card img {
-    height: 150px;
-  }
+body.dark .category-tag {
+  background: rgba(99, 102, 241, 0.15) !important;
+  color: #818cf8 !important;
+}
 
-  .destination-card a,
-  .package-card a {
-    width: 100%;
+.card-desc {
+  font-size: 0.9rem !important;
+  color: #64748b !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+body.dark .card-desc {
+  color: #94a3b8 !important;
+}
+
+.card-info-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-top: auto !important;
+  padding-top: 1rem !important;
+  border-top: 1px dashed rgba(148, 163, 184, 0.15) !important;
+}
+
+.card-price {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.card-price .price-label {
+  font-size: 0.75rem !important;
+  color: #94a3b8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-weight: 600 !important;
+}
+
+.card-price .price-val {
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  line-height: 1.2 !important;
+}
+
+body.dark .card-price .price-val {
+  color: #f8fafc !important;
+}
+
+.card-duration {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+}
+
+body.dark .card-duration {
+  color: #cbd5e1 !important;
+}
+
+.card-extra-info {
+  font-size: 0.8rem !important;
+  color: #64748b !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+body.dark .card-extra-info {
+  color: #cbd5e1 !important;
+}
+
+/* CTA Card Button */
+.card-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  padding: 0.75rem 1.5rem !important;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.2) !important;
+  margin-top: 0.5rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.card-btn:hover {
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35) !important;
+  transform: translateY(-2px) !important;
+  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%) !important;
+}
+
+.card-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease !important;
+}
+
+.card-btn:hover svg {
+  transform: translateX(4px) !important;
+}
+
+/* Image Placeholders and Errors */
+.image-placeholder,
+.image-error {
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  font-size: 1.1rem !important;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 640px) {
+  .image-container {
+    height: 180px;
+  }
+  
+  .card-content {
+    padding: 1.25rem !important;
   }
 }

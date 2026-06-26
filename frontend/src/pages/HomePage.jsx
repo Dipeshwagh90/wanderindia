@@ -45,7 +45,12 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <section className="hero">
+      <section 
+        className="hero" 
+        style={{ 
+          backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.45)), url('/assets/hero-bg.png')` 
+        }}
+      >
         <div className="hero-content">
           <span className="hero-badge">Premium travel experiences</span>
           <h1>Discover the Magic of India with WanderIndia</h1>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocalStorageObject } from '../hooks/useLocalStorage';
+import { FaHeart, FaStar } from 'react-icons/fa';
+import { FiHeart, FiArrowRight } from 'react-icons/fi';
 import '../styles/Cards.css';
 
 // Fallback color mapping for placeholder backgrounds
@@ -56,8 +58,9 @@ const DestinationCard = ({ destination }) => {
         onClick={toggleWishlist}
         title={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
       >
-        {isWishlisted ? '❤️' : '❤️'}
+        {isWishlisted ? <FaHeart /> : <FiHeart />}
       </button>
+      
       <div className="image-container" style={{ position: 'relative', overflow: 'hidden' }}>
         {!imageLoaded && (
           <div 
@@ -67,7 +70,7 @@ const DestinationCard = ({ destination }) => {
               top: 0,
               left: 0,
               width: '100%',
-              height: '200px',
+              height: '220px',
               background: fallbackBgColor,
               display: 'flex',
               alignItems: 'center',
@@ -98,7 +101,7 @@ const DestinationCard = ({ destination }) => {
               top: 0,
               left: 0,
               width: '100%',
-              height: '200px',
+              height: '220px',
               background: fallbackBgColor,
               display: 'flex',
               alignItems: 'center',
@@ -113,21 +116,33 @@ const DestinationCard = ({ destination }) => {
           </div>
         )}
       </div>
-      <h3>{destination.name}</h3>
-      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-        <span className="rating-badge">
-          ⭐ {destination.rating}/5
-        </span>
-        <span style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>
-          {destination.category}
-        </span>
+
+      <div className="card-content">
+        <h3 className="card-title">{destination.name}</h3>
+        
+        <div className="card-meta">
+          <span className="rating-badge">
+            <FaStar /> {destination.rating}/5
+          </span>
+          <span className="category-tag">
+            {destination.category}
+          </span>
+        </div>
+        
+        <p className="card-desc">
+          {destination.description || 'Discover the magical, cultural, and historic locations of this destination.'}
+        </p>
+        
+        <div className="card-info-row">
+          <span className="card-extra-info">
+            Best time: {destination.bestTimeToVisit || destination.bestTime || 'Year-round'}
+          </span>
+        </div>
+
+        <Link to={`/destinations/${destination._id}`} className="card-btn">
+          View Details <FiArrowRight />
+        </Link>
       </div>
-      <p style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>
-        Best time: {destination.bestTime || 'Year-round'}
-      </p>
-      <Link to={`/destinations/${destination._id}`} style={{ marginTop: 'auto' }}>
-        View Details →
-      </Link>
     </div>
   );
 };

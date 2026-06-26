@@ -78,7 +78,6 @@ const PackagesPage = () => {
   };
 
   const maxPriceAvailable = packages.length > 0 ? Math.max(...packages.map(p => p.price)) : 100000;
-  const maxDurationAvailable = packages.length > 0 ? Math.max(...packages.map(p => parseInt(p.duration.split(' ')[0]))) : 10;
 
   if (loading) {
     return <LoadingSpinner message="Loading curated tour packages..." />;
@@ -86,31 +85,27 @@ const PackagesPage = () => {
 
   return (
     <div className="packages-page">
-      <div style={{ marginBottom: '2rem' }}>
+      <div className="page-hero-banner">
         <h1>Tour Packages</h1>
-        <p style={{ color: 'var(--muted)' }}>Choose from {filteredPackages.length} curated travel packages</p>
+        <p>Choose from {filteredPackages.length} curated travel packages</p>
       </div>
 
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} value={searchTerm} />
 
       <div className="filters">
         <div className="filters-header">
           <div style={{ flex: 1 }}>
-            <h3 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 600 }}>Price Range</h3>
+            <h3 style={{ margin: '0 0 1rem', fontSize: '0.95rem', fontWeight: 700 }}>Price Range</h3>
             <input
               type="range"
               min="0"
               max={maxPriceAvailable}
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
-              style={{
-                width: '100%',
-                cursor: 'pointer',
-                accentColor: 'var(--primary)'
-              }}
+              className="premium-range-slider"
             />
-            <p style={{ color: 'var(--muted)', fontSize: '0.9rem', margin: '0.5rem 0 0' }}>
-              Up to ₹{maxPrice.toLocaleString()}
+            <p style={{ color: 'var(--muted)', fontSize: '0.95rem', margin: '0.5rem 0 0', fontWeight: 600 }}>
+              Up to ₹{maxPrice.toLocaleString('en-IN')}
             </p>
           </div>
         </div>
@@ -118,13 +113,13 @@ const PackagesPage = () => {
         <div className="filters-actions">
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.9rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, fontSize: '0.9rem' }}>
                 Minimum Duration
               </label>
               <select 
                 value={minDuration}
                 onChange={(e) => setMinDuration(Number(e.target.value))}
-                className="sort-dropdown"
+                className="premium-select"
               >
                 <option value={0}>Any Duration</option>
                 <option value={3}>3+ Days</option>
@@ -134,13 +129,13 @@ const PackagesPage = () => {
               </select>
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.9rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 700, fontSize: '0.9rem' }}>
                 Sort by
               </label>
               <select 
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="sort-dropdown"
+                className="premium-select"
               >
                 <option value="name">Name (A-Z)</option>
                 <option value="price-low">Price (Low to High)</option>
@@ -155,22 +150,36 @@ const PackagesPage = () => {
       {filteredPackages.length === 0 ? (
         <div style={{ 
           textAlign: 'center', 
-          padding: '3rem 1rem',
-          background: 'rgba(16, 97, 244, 0.05)',
-          borderRadius: '1.5rem',
-          marginTop: '2rem'
+          padding: '4rem 2rem',
+          background: 'rgba(16, 97, 244, 0.03)',
+          borderRadius: '24px',
+          marginTop: '2rem',
+          border: '1px dashed rgba(79, 70, 229, 0.15)'
         }}>
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>No packages found</h2>
-          <p style={{ color: 'var(--muted)' }}>Try adjusting your filters or search terms</p>
+          <h2 style={{ fontSize: '1.6rem', marginBottom: '0.5rem', fontWeight: 700 }}>No packages found</h2>
+          <p style={{ color: 'var(--muted)', marginBottom: '1.5rem' }}>Try adjusting your filters or search terms</p>
+          <button 
+            onClick={() => {
+              setSearchTerm('');
+              setMaxPrice(maxPriceAvailable);
+              setMinDuration(0);
+              setSortBy('name');
+            }}
+            className="reset-filters-btn"
+          >
+            Reset All Filters
+          </button>
         </div>
       ) : (
         <>
-          <p style={{ color: 'var(--muted)', marginBottom: '1rem' }}>
+          <p style={{ color: 'var(--muted)', marginBottom: '1rem', fontWeight: 500 }}>
             Showing {filteredPackages.length} package{filteredPackages.length !== 1 ? 's' : ''}
           </p>
           <div className="packages-grid">
-            {filteredPackages.map(pkg => (
-              <PackageCard key={pkg._id} package={pkg} />
+            {filteredPackages.map((pkg, idx) => (
+              <div key={pkg._id} className="card-entry-animate" style={{ animationDelay: `${idx * 0.05}s` }}>
+                <PackageCard package={pkg} />
+              </div>
             ))}
           </div>
         </>

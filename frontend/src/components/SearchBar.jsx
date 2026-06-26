@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SearchBar = ({ onSearch, placeholder = 'Search destinations or packages...' }) => {
-  const [value, setValue] = useState('');
+const SearchBar = ({ onSearch, value: controlledValue = '', placeholder = 'Search destinations or packages...' }) => {
+  const [value, setValue] = useState(controlledValue);
+
+  useEffect(() => {
+    setValue(controlledValue);
+  }, [controlledValue]);
 
   const handleChange = (e) => {
     const searchValue = e.target.value;
