@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import axiosInstance from '../api/axiosInstance';
 
 const AuthContext = createContext();
 
@@ -19,13 +20,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       // Verify token on app load
-      fetch('http://localhost:5000/api/auth/verify', {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.user) {
-          setUser(data.user);
+      axiosInstance.get('/auth/verify')
+      .then(res => {
+        if (res.data.user) {
+          setUser(res.data.user);
         } else {
           setUser(null);
           setToken(null);
@@ -43,39 +41,29 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setUser(data.user);
-        setToken(data.token);
-        return { success: true };
-      }
-      return { success: false, message: data.message || 'Invalid credentials' };
+      const res = await axiosInstance.post('/auth/login', { email, password });
+      setUser(res.data.user);
+      setToken(res.data.token);
+      return { success: true };
     } catch (error) {
-      return { success: false, message: 'Unable to reach backend. Please start the server and try again.' };
+      return { 
+        success: false, 
+        message: error.response?.data?.message || 'Unable to reach backend. Please start the server and try again.' 
+      };
     }
   };
 
   const register = async (name, email, password) => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setUser(data.user);
-        setToken(data.token);
-        return { success: true };
-      }
-      return { success: false, message: data.message || 'Registration failed' };
+      const res = await axiosInstance.post('/auth/register', { name, email, password });
+      setUser(res.data.user);
+      setToken(res.data.token);
+      return { success: true };
     } catch (error) {
-      return { success: false, message: 'Unable to reach backend. Please start the server and try again.' };
+      return { 
+        success: false, 
+        message: error.response?.data?.message || 'Registration failed' 
+      };
     }
   };
 

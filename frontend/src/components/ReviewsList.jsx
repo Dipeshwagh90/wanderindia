@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../api/axiosInstance';
 import ReviewCard from './ReviewCard';
 import '../styles/ReviewsList.css';
 
@@ -18,10 +18,10 @@ const ReviewsList = ({ destinationId, packageId, refresh, currentUserId }) => {
     try {
       setLoading(true);
       const url = destinationId 
-        ? `http://localhost:5000/api/reviews/destination/${destinationId}`
-        : `http://localhost:5000/api/reviews/package/${packageId}`;
+        ? `/reviews/destination/${destinationId}`
+        : `/reviews/package/${packageId}`;
 
-      const response = await axios.get(url);
+      const response = await axiosInstance.get(url);
       
       // Sort reviews based on sortBy value
       let sortedReviews = [...response.data];

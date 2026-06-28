@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../api/axiosInstance';
 import '../styles/ReviewCard.css';
 
 const ReviewCard = ({ review, onDelete, currentUserId }) => {
@@ -19,8 +19,8 @@ const ReviewCard = ({ review, onDelete, currentUserId }) => {
   const handleHelpful = async () => {
     if (hasVoted) return;
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/reviews/${review._id}/helpful`
+      const response = await axiosInstance.post(
+        `/reviews/${review._id}/helpful`
       );
       setHelpful(response.data.helpful);
       setHasVoted(true);
@@ -32,8 +32,8 @@ const ReviewCard = ({ review, onDelete, currentUserId }) => {
   const handleNotHelpful = async () => {
     if (hasVoted) return;
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/reviews/${review._id}/not-helpful`
+      const response = await axiosInstance.post(
+        `/reviews/${review._id}/not-helpful`
       );
       setNotHelpful(response.data.notHelpful);
       setHasVoted(true);
@@ -45,12 +45,8 @@ const ReviewCard = ({ review, onDelete, currentUserId }) => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this review?')) {
       try {
-        const token = localStorage.getItem('token');
-        await axios.delete(
-          `http://localhost:5000/api/reviews/${review._id}`,
-          {
-            headers: { 'Authorization': `Bearer ${token}` }
-          }
+        await axiosInstance.delete(
+          `/reviews/${review._id}`
         );
         onDelete(review._id);
       } catch (err) {

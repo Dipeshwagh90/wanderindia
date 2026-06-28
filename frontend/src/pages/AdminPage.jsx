@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import axiosInstance from '../api/axiosInstance';
 import { 
   FaMapMarkerAlt, 
   FaSuitcase, 
@@ -31,11 +32,8 @@ const AdminPage = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/${activeTab}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const result = await res.json();
-      setData(result);
+      const res = await axiosInstance.get(`/admin/${activeTab}`);
+      setData(res.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -62,18 +60,9 @@ const AdminPage = () => {
         }
       }
 
-      const res = await fetch(`http://localhost:5000/api/admin/${activeTab}/${editing}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(payload)
-      });
-      if (res.ok) {
-        setEditing(null);
-        fetchData();
-      }
+      await axiosInstance.put(`/admin/${activeTab}/${editing}`, payload);
+      setEditing(null);
+      fetchData();
     } catch (error) {
       console.error('Error saving:', error);
     }
@@ -82,13 +71,8 @@ const AdminPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        const res = await fetch(`http://localhost:5000/api/admin/${activeTab}/${id}`, {
-          method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (res.ok) {
-          fetchData();
-        }
+        await axiosInstance.delete(`/admin/${activeTab}/${id}`);
+        fetchData();
       } catch (error) {
         console.error('Error deleting:', error);
       }
@@ -97,18 +81,9 @@ const AdminPage = () => {
 
   const handleCreate = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/${activeTab}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(formData)
-      });
-      if (res.ok) {
-        setFormData({});
-        fetchData();
-      }
+      await axiosInstance.post(`/admin/${activeTab}`, formData);
+      setFormData({});
+      fetchData();
     } catch (error) {
       console.error('Error creating:', error);
     }
