@@ -5,6 +5,7 @@
 
 [build.environment]
   CI = "false"
+  REACT_APP_API_URL = "https://wanderindia-h8p3.onrender.com/api"
 
 [[redirects]]
   from = "/*"
