@@ -6,18 +6,16 @@ const SearchBar = ({ onSearch, value: controlledValue = '', placeholder = 'Searc
   useEffect(() => {
     setValue(controlledValue);
   }, [controlledValue]);
-
+  
   const handleChange = (e) => {
     const searchValue = e.target.value;
     setValue(searchValue);
     onSearch(searchValue);
   };
-
   const handleClear = () => {
     setValue('');
     onSearch('');
   };
-
   return (
     <div className="search-bar" style={{ marginBottom: '1.5rem' }}>
       <div style={{
@@ -77,5 +75,4 @@ const SearchBar = ({ onSearch, value: controlledValue = '', placeholder = 'Searc
     </div>
   );
 };
-
 export default SearchBar;

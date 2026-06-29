@@ -1,10 +1,10 @@
-import { useParams, Link } from 'react-router-dom';
-import { packages } from '../data/packages';
-import './PackageDetail.css';
+ import { useParams, Link } from 'react-router-dom';
+ import { packages } from '../data/packages';
+ import './PackageDetail.css';
 
-const PackageDetail = () => {
-  const { id } = useParams();
-  const pkg = packages.find(p => p.id === parseInt(id));
+ const PackageDetail = () => {
+ const { id } = useParams();
+ const pkg = packages.find(p => p.id === parseInt(id));
 
   if (!pkg) {
     return (

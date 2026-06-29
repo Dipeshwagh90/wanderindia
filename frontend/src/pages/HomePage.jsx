@@ -17,6 +17,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.body.classList.add('home-bg-active');
     const fetchData = async () => {
       try {
         const [destRes, pkgRes] = await Promise.all([
@@ -34,6 +35,10 @@ const HomePage = () => {
       }
     };
     fetchData();
+
+    return () => {
+      document.body.classList.remove('home-bg-active');
+    };
   }, []);
 
   const featuredDestinations = destinations.slice(0, 3);
@@ -45,12 +50,7 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <section 
-        className="hero" 
-        style={{ 
-          backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.45)), url('/assets/hero-bg.png')` 
-        }}
-      >
+      <section className="hero">
         <div className="hero-content">
           <span className="hero-badge">Premium travel experiences</span>
           <h1>Discover the Magic of India with WanderIndia</h1>

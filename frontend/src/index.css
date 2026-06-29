@@ -6777,4 +6777,146 @@ body.dark .reset-filters-btn:hover {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
   }
+}
+
+/* ==========================================================================
+   HOME PAGE FULL-PAGE BACKGROUND IMAGE & GLASSMORPHISM (added June 29, 2026)
+   ========================================================================== */
+
+body.home-bg-active {
+  background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.88)), url('https://www.passportandpixels.com/wp-content/uploads/2022/11/really-wildlife-nature-holiday-collab_pp.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #f8fafc;
+}
+
+body.home-bg-active .navbar {
+  background: rgba(15, 23, 42, 0.7) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.home-bg-active .navbar a,
+body.home-bg-active .navbar button,
+body.home-bg-active .navbar .nav-link,
+body.home-bg-active .navbar .logo-text {
+  color: #ffffff !important;
+}
+
+body.home-bg-active .hero {
+  background: rgba(255, 255, 255, 0.04) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25) !important;
+  padding: 4rem 3rem !important;
+}
+
+/* Glassmorphism for main sections */
+body.home-bg-active .features-section,
+body.home-bg-active .testimonials-section,
+body.home-bg-active .travel-tips-section,
+body.home-bg-active .statistics-section {
+  background: rgba(255, 255, 255, 0.02) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
+  padding: 3rem 2.5rem !important;
+  border-radius: 2rem !important;
+  margin: 2.5rem 0 !important;
+}
+
+/* Styling subcards */
+body.home-bg-active .feature-card,
+body.home-bg-active .testimonial-card,
+body.home-bg-active .travel-tip-card,
+body.home-bg-active .stat-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  color: #ffffff !important;
+}
+
+body.home-bg-active .feature-card:hover,
+body.home-bg-active .testimonial-card:hover,
+body.home-bg-active .travel-tip-card:hover,
+body.home-bg-active .stat-card:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Overriding text colors inside section wrappers */
+body.home-bg-active .testimonials-header h2,
+body.home-bg-active .features-header h2,
+body.home-bg-active .section-header-centered h2,
+body.home-bg-active .section-header h2,
+body.home-bg-active .feature-card h3,
+body.home-bg-active .testimonial-card h4,
+body.home-bg-active .travel-tip-card h3,
+body.home-bg-active .testimonials-header p,
+body.home-bg-active .features-header p,
+body.home-bg-active .section-header-centered p,
+body.home-bg-active .feature-card p,
+body.home-bg-active .testimonial-card p,
+body.home-bg-active .travel-tip-card p,
+body.home-bg-active .travel-tip-card li,
+body.home-bg-active .stat-label {
+  color: #ffffff !important;
+}
+
+body.home-bg-active .testimonials-header p,
+body.home-bg-active .features-header p,
+body.home-bg-active .section-header-centered p,
+body.home-bg-active .feature-card p,
+body.home-bg-active .testimonial-card p,
+body.home-bg-active .travel-tip-card p,
+body.home-bg-active .travel-tip-card li,
+body.home-bg-active .stat-label {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Blue primary colors for links and stats values */
+body.home-bg-active .section-link {
+  color: #38bdf8 !important;
+}
+
+body.home-bg-active .stat-value {
+  color: #38bdf8 !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* General layout adjustments for statistics section */
+.statistics-section {
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(16, 97, 244, 0.08), rgba(124, 58, 237, 0.08));
+  border-radius: 2rem;
+  margin: 2rem 0;
+}
+
+.statistics-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 2rem;
+}
+
+.stat-card {
+  text-align: center;
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  animation: slideUpIn 0.6s ease backwards;
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
 }
